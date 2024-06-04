@@ -4,6 +4,8 @@ import React from 'react'
 const ItemListCategory = () => {
   return (
     <View>
+      {/* Search */}
+      {/* FlatList --> ProductItem */}
       <Text>ItemListCategory</Text>
     </View>
   );
