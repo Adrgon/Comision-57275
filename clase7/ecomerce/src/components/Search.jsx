@@ -1,8 +1,15 @@
 import { Pressable, StyleSheet, Text, TextInput, View } from "react-native";
 import { colors } from "../global/colors";
+import { useState } from "react";
+
+import { FontAwesome5 } from "@expo/vector-icons";
+import { FontAwesome6 } from "@expo/vector-icons";
+import { AntDesign } from "@expo/vector-icons";
 
 
-const Search = () => {
+const Search = ({onSearch = () => {}, goBack = ()=>{}}) => {
+  const [keyword, setKeyword] = useState("")
+
   return (
     <View style={styles.container}>
       <TextInput
@@ -11,14 +18,14 @@ const Search = () => {
         value={keyword}
         onChangeText={setKeyword}
       />
-      <Pressable>
-        <Text>Search</Text>
+      <Pressable onPress={()=>onSearch(keyword)}>
+        <FontAwesome5 name="search" size={24} color="black" />
       </Pressable>
-      <Pressable >
-        <Text></Text>
+      <Pressable onPress={()=> setKeyword("")}>
+        <FontAwesome6 name="eraser" size={24} color="black" />
       </Pressable>
-      <Pressable>
-        <Text>back</Text>
+      <Pressable onPress={goBack}>
+        <AntDesign name="back" size={24} color="black" />
       </Pressable>
     </View>
   );
