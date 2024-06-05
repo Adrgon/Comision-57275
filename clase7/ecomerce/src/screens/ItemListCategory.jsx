@@ -41,7 +41,7 @@ const ItemListCategory = ({categorySelected = "", setCategorySelected = ()=>{}})
       {/* Search */}
       <Search onSearch={setKeyword} goBack={()=> setCategorySelected('')} />
       {/* FlatList --> ProductItem */}
-      
+      <Text>{error}</Text>
       <FlatList
         data={productsFiltered}
         renderItem={({ item }) => <ProductItem product={item} />}
