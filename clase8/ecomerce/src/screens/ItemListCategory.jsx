@@ -9,7 +9,8 @@ import ProductItem from '../components/ProductItem.jsx'
 
 const ItemListCategory = ({
   categorySelected = "", 
-  setCategorySelected = ()=>{}
+  setCategorySelected = ()=>{},
+  setItemIdSelected = () => {}
 }) => {
   const [keyWord, setKeyword] = useState('')
   const [productsFiltered, setProductsFiltered] = useState([])
@@ -22,6 +23,15 @@ const ItemListCategory = ({
       setError("Don't use digits");
       return;
     }
+
+    const regexThreeOrMoreCharacters = /[a-zA-Z]{3,}/;
+    const hasThreeOrMoreChar = regexThreeOrMoreCharacters.test(keyWord);
+
+    if(!hasThreeOrMoreChar && keyWord.length){
+      setError("Type 3 or more characters")
+      return;
+    }
+
     console.log(error)
 
     const productsPreFiltered = products.filter(
@@ -33,17 +43,19 @@ const ItemListCategory = ({
     );
     console.log(productsFiter);
     setProductsFiltered(productsFiter);
+    setError('')
   }, [keyWord, categorySelected])
 
   return (
     <View style={styles.flatListContainer}>
       <Search
+        error={error}
         onSearch={setKeyword}
         goBack={() => setCategorySelected("")}
       />
       <FlatList
         data={productsFiltered}
-        renderItem={({ item }) => <ProductItem product={item} />}
+        renderItem={({ item }) => <ProductItem product={item} setItemIdSelected={setItemIdSelected} />}
         keyExtractor={(producto) => producto.id}
       />
     </View>

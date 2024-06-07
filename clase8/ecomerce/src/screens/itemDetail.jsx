@@ -6,15 +6,30 @@ import {
   StyleSheet,
   Text,
   View,
+  useWindowDimensions,
 } from "react-native";
 
 
 import allProducts from "../data/products.json";
 
-const ItemDetail = ({ 
-  idSelected, 
-}) => {
+const ItemDetail = ({ idSelected, setProductSelected = ()=>{} }) => {
+  
+  const {width, height} = useWindowDimensions()  
+  const [orientation, setOrientation] = useState("portrait");
+  
   const [product, setProduct] = useState(null);
+
+
+  console.log("width: " + width);
+  console.log("heigth: " + height);
+
+  // Landscape: Horisontal
+  // Portraint: Vertical
+
+  useEffect(()=>{
+    if(width > height) setOrientation("landscape")
+    else setOrientation('portrait')
+  }, [width, height])
 
   useEffect(() => {
     //Encontrar el producto por su id
@@ -29,14 +44,23 @@ const ItemDetail = ({
 
   return (
     <View>
+    <Button onPress={()=> setProductSelected("")} title="Back" />
       {product ? (
-        <View style={styles.mainContainer}>
+        <View style={
+          orientation === 'portrait' ? 
+          styles.mainContainer
+          : styles.mainContainerLandscape
+        }>
           <Image
             source={{ uri: product.images[0] }}
-            style={styles.image}
+            style={orientation === 'portrait' ? 
+            styles.image
+            : styles.imageLandscape }
             resizeMode="cover"
           />
-          <View style={styles.textContainer}>
+          <View style={orientation === 'portrait' ? 
+          styles.textContainer
+          : styles.textContainerLandscape}>
             <Text>{product.title}</Text>
             <Text>{product.description}</Text>
             <Text style={styles.price}>${product.price}</Text>
@@ -57,12 +81,33 @@ const styles = StyleSheet.create({
     alignItems: "flex-start",
     padding: 10,
   },
+  mainContainerLandscape: {
+    flexDirection: "row",
+    justifyContent: "center",
+    alignItems: "flex-start",
+    padding: 10,
+    gap: 10,
+  },
   image: {
     width: "100%",
     height: 250,
+  },
+  imageLandscape: {
+    width: "45%",
+    height: 200,
   },
 
   textContainer: {
     flexDirection: "column",
   },
+  textContainerLandscape: {
+    width: "50%",
+    flexDirection: 'column',
+    justifyContent: 'center',
+    alignItems: "start",
+    gap: 10,
+  },
+  price: {
+    textAlign: "right"
+  }
 });

@@ -1,7 +1,7 @@
 import {useState, useCallback } from "react";
 
 
-import { StyleSheet, View } from "react-native";
+import { StyleSheet, View, SafeAreaView, StatusBar, Platform } from "react-native";
 
 import Home from "./src/screens/Home";
 import Header from "./src/components/Header";
@@ -11,43 +11,50 @@ import { colors } from "./src/global/colors";
 import { useFonts } from "expo-font";
 import * as SplashScreen from "expo-splash-screen";
 import ItemListCategory from "./src/screens/ItemListCategory";
+import ItemDetail from './src/screens/itemDetail';
 
 
 export default function App() {
   /* Configurar Fuente */
 
+  /* Configurar Navegacion provisoria (pops) */
+  const [categorySelected, setCategorySelected] = useState("");
+  const [itemIdSelected, setItemIdSelected] = useState("");
+
   const [fontsLoaded, fontError] = useFonts({
     Josefin: require("./assets/JosefinSans-Regular.ttf"),
   });
 
-  const onLayoutRootView = useCallback(async () => {
-    if (fontsLoaded || fontError) {
-      await SplashScreen.hideAsync();
-    }
-  }, [fontsLoaded, fontError]);
-
-  /* Configurar Navegacion provisoria (pops) */
-  const [categorySelected, setCategorySelected] = useState("");
+  if (!fontsLoaded && !fontError) {
+    return null;
+  }
 
   return (
-    <View style={styles.container}>
-      <Header title="Titulo" />      
-      {!categorySelected ? 
+    <SafeAreaView style={styles.container}>
+      <Header title="Titulo" />
+      {!categorySelected ? (
         <Home setCategorySelected={setCategorySelected} />
-      : 
-      <ItemListCategory
+      ) : !itemIdSelected ? (
+        <ItemListCategory
           categorySelected={categorySelected}
           setCategorySelected={setCategorySelected}
+          setItemIdSelected={setItemIdSelected}
         />
-      }
-    </View>
+      ) : (
+        <ItemDetail
+          idSelected={itemIdSelected}
+          setProductSelected={setItemIdSelected}
+        />
+      )}
+    </SafeAreaView>
   );
 }
 
+
 const styles = StyleSheet.create({
   container: {
-    //marginTop: Platform.OS === "android" ? StatusBar.currentHeight : 0,
-    marginTop: 60,
+    marginTop: Platform.OS === "android" ? StatusBar.currentHeight : 0,
+    //marginTop: 60,
     flex: 1,
     backgroundColor: colors.lightGray,
     alignItems: "center",

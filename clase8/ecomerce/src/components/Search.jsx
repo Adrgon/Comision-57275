@@ -6,7 +6,7 @@ import { FontAwesome5 } from "@expo/vector-icons";
 import { FontAwesome6 } from "@expo/vector-icons";
 import { AntDesign } from "@expo/vector-icons";
 
-const Search = ({ onSearch = () => {}, goBack = () => {} }) => {
+const Search = ({ onSearch = () => {}, error = '',  goBack = () => {} }) => {
   const [keyword, setKeyword] = useState("");
 
   return (
@@ -18,6 +18,7 @@ const Search = ({ onSearch = () => {}, goBack = () => {} }) => {
           value={keyword}
           onChangeText={setKeyword}
         />
+        {error ? <Text style={styles.errorText}>{error}</Text> : null}
       </View>
 
       <Pressable onPress={() => onSearch(keyword)}>
