@@ -24,24 +24,24 @@ const List = ({personas}) => {
 export default List
 
 const styles = StyleSheet.create({
-    persona: {
-
-    }, 
-    imagen: {
-        height: 80,
-        width: 80,
-        borderRadius: '50%'
-    }, 
-    nombre: {
-        fontSize: 20,
-        padding: 10
-    }, 
-    anios: {
-        fontSize: 18,
-        backgroundColor: '#5E49E2',
-        padding: 10,
-        borderRadius: 20,
-        color: '#fffffC',
-        fontWeight: 600,
-    }
-})
+  persona: {
+    alignItems: "center",
+  },
+  imagen: {
+    height: 80,
+    width: 80,
+    borderRadius: "50%",
+  },
+  nombre: {
+    fontSize: 20,
+    padding: 10,
+  },
+  anios: {
+    fontSize: 18,
+    backgroundColor: "#5E49E2",
+    padding: 10,
+    borderRadius: 20,
+    color: "#fffffC",
+    fontWeight: 600,
+  },
+});

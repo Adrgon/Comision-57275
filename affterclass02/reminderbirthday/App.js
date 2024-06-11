@@ -36,7 +36,6 @@ export default function App() {
 const styles = StyleSheet.create({
   contenedor: {
     flex: 1,
-
     paddingTop: Platform.OS === 'ios' ? 10 : 50,
   },
   imagen: {
