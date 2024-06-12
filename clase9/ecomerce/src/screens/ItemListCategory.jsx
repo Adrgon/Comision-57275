@@ -8,13 +8,14 @@ import Search from '../components/Search';
 import ProductItem from '../components/ProductItem.jsx'
 
 const ItemListCategory = ({
-  categorySelected = "", 
-  setCategorySelected = ()=>{},
-  setItemIdSelected = () => {}
+  navigation,
+  route,
 }) => {
   const [keyWord, setKeyword] = useState('')
   const [productsFiltered, setProductsFiltered] = useState([])
   const [error, setError] = useState("")
+
+  const { category: categorySelected } = route.params;
 
   useEffect(()=>{
     const regexDigits = /\d/;
@@ -51,11 +52,11 @@ const ItemListCategory = ({
       <Search
         error={error}
         onSearch={setKeyword}
-        goBack={() => setCategorySelected("")}
+        goBack={() => navigation.goBack()}
       />
       <FlatList
         data={productsFiltered}
-        renderItem={({ item }) => <ProductItem product={item} setItemIdSelected={setItemIdSelected} />}
+        renderItem={({ item }) => <ProductItem product={item} navigation={navigation} />}
         keyExtractor={(producto) => producto.id}
       />
     </View>

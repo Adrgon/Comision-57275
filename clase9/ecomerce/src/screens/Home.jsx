@@ -4,14 +4,14 @@ import CategoryItem from '../components/CategoryItem'
 import { colors } from '../global/colors'
 import categories from "../data/categories.json";
 
-const Home = ({setCategorySelected}) => {
+const Home = ({navigation, route}) => {
   return (
     <View style={styles.flatListContainer}>
       <FlatList
         keyExtractor={(category) => category}
         data={categories}
-        renderItem={({ item, index, separators }) => (
-          <CategoryItem category={item} selectCategory={setCategorySelected} />
+        renderItem={({ item }) => (
+          <CategoryItem category={item} navigation={navigation} />
         )}
       />
     </View>

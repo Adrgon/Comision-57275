@@ -12,12 +12,14 @@ import {
 
 import allProducts from "../data/products.json";
 
-const ItemDetail = ({ idSelected, setProductSelected = ()=>{} }) => {
+const ItemDetail = ({ route, navigation}) => {
   
   const {width, height} = useWindowDimensions()  
   const [orientation, setOrientation] = useState("portrait");
   
   const [product, setProduct] = useState(null);
+
+  const {productoId: idSelected} = route.params
 
 
   console.log("width: " + width);
@@ -44,7 +46,7 @@ const ItemDetail = ({ idSelected, setProductSelected = ()=>{} }) => {
 
   return (
     <View>
-    <Button onPress={()=> setProductSelected("")} title="Back" />
+    <Button onPress={()=> navigation.goBack()} title="Back" />
       {product ? (
         <View style={
           orientation === 'portrait' ? 

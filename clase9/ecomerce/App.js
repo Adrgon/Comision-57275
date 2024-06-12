@@ -1,7 +1,8 @@
 import {useState, useCallback } from "react";
+import { StyleSheet, View, SafeAreaView, StatusBar, Platform, Text } from "react-native";
 
-
-import { StyleSheet, View, SafeAreaView, StatusBar, Platform } from "react-native";
+import { createNativeStackNavigator } from "@react-navigation/native-stack";
+import { NavigationContainer } from "@react-navigation/native";
 
 import Home from "./src/screens/Home";
 import Header from "./src/components/Header";
@@ -13,13 +14,13 @@ import * as SplashScreen from "expo-splash-screen";
 import ItemListCategory from "./src/screens/ItemListCategory";
 import ItemDetail from './src/screens/itemDetail';
 
-
+const Stack = createNativeStackNavigator()
 export default function App() {
   /* Configurar Fuente */
 
   /* Configurar Navegacion provisoria (pops) */
-  const [categorySelected, setCategorySelected] = useState("");
-  const [itemIdSelected, setItemIdSelected] = useState("");
+/*   const [categorySelected, setCategorySelected] = useState("");
+  const [itemIdSelected, setItemIdSelected] = useState(""); */
 
   const [fontsLoaded, fontError] = useFonts({
     Josefin: require("./assets/JosefinSans-Regular.ttf"),
@@ -30,23 +31,37 @@ export default function App() {
   }
 
   return (
-    <SafeAreaView style={styles.container}>
-      <Header title="Titulo" />
-      {!categorySelected ? (
-        <Home setCategorySelected={setCategorySelected} />
-      ) : !itemIdSelected ? (
-        <ItemListCategory
-          categorySelected={categorySelected}
-          setCategorySelected={setCategorySelected}
-          setItemIdSelected={setItemIdSelected}
-        />
-      ) : (
-        <ItemDetail
-          idSelected={itemIdSelected}
-          setProductSelected={setItemIdSelected}
-        />
-      )}
-    </SafeAreaView>
+    <>
+      <SafeAreaView style={styles.container}>
+        <NavigationContainer>
+          <Stack.Navigator 
+            initialRouteName="Home"
+            screenOptions={ ({route})=> ({
+              header: () => {
+                return (
+                  <Header 
+                    title={
+                      route.name === 'Home' 
+                      ? "Categories"
+                      : route.name === "ItemListCategory"
+                      ? route.params.category
+                      : "Detail"
+                    }
+                  />
+                )
+              }
+            })}
+          >
+            <Stack.Screen name="Home" component={Home} />
+            <Stack.Screen
+              name="ItemListCategory"
+              component={ItemListCategory}
+            />
+            <Stack.Screen name="ItemDetail" component={ItemDetail} />
+          </Stack.Navigator>
+        </NavigationContainer>
+      </SafeAreaView>
+    </>
   );
 }
 
@@ -57,6 +72,6 @@ const styles = StyleSheet.create({
     //marginTop: 60,
     flex: 1,
     backgroundColor: colors.lightGray,
-    alignItems: "center",
+    //alignItems: "center",
   },
 });
