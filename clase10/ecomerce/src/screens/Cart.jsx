@@ -4,11 +4,12 @@ import CartData from '../data/cart.json'
 import CartItem from '../components/CartItem';
 
 const Cart = () => {
-  /*     let totalGeneral = 0
+  /*     
+  let totalGeneral = 0
     for(const currntItem of CartData){
         totalGeneral += currntItem.price * currntItem.quantity;
     } 
-        */
+*/
 
   const total = CartData.reduce(
     (acc, currentItem) => (acc += currentItem.price * currentItem.quantity),
