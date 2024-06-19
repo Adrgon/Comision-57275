@@ -3,15 +3,26 @@ import React from "react";
 import Card from "./Card";
 import { colors } from "../global/colors";
 
+import { useDispatch } from "react-redux";
+import { setItemSelected } from "../fetures/Shop/ShopSlice";
+
 const ProductItem = ({
   product,
   navigation
 }) => {
+
+  const dispatch = useDispatch()
+
+  const handleNavigate = () => {
+    dispatch(setItemSelected(product.title))
+    navigation.navigate("ItemDetail", { productoId: product.id });
+  }
+
   return (
     <Card style={styles.additionalStylesCard}>
       <Pressable
         style={styles.pressable}
-        onPress={()=> navigation.navigate('ItemDetail', {productoId: product.id})}
+        onPress={handleNavigate}
       >
         <Text style={styles.textCategory}>{product.title}</Text>
         <Image

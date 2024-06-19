@@ -4,6 +4,10 @@ import { colors } from "./src/global/colors";
 
 import Navigator from "./src/navigation/Navigator";
 
+import { Provider } from "react-redux";
+import store from "./src/store";
+
+
 export default function App() {
 
   const [fontsLoaded, fontError] = useFonts({
@@ -15,11 +19,11 @@ export default function App() {
   }
 
   return (
-
-      <SafeAreaView style={styles.container}>
+    <SafeAreaView style={styles.container}>
+      <Provider store={store}>
         <Navigator />
-      </SafeAreaView>
-
+      </Provider>
+    </SafeAreaView>
   );
 }
 
