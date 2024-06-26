@@ -9,15 +9,16 @@ import {
   useWindowDimensions,
 } from "react-native";
 
-import allProducts from "../data/products.json";
+//import allProducts from "../data/products.json";
+import { useGetProductByIdQuery } from "../services/shopServices";
 
 const ItemDetail = ({ route, navigation }) => {
   const { width, height } = useWindowDimensions();
   const [orientation, setOrientation] = useState("portrait");
-
-  const [product, setProduct] = useState(null);
-
+//  const [product, setProduct] = useState(null);
   const { productoId: idSelected } = route.params;
+
+  const {data: product, error, isLoading} = useGetProductByIdQuery(idSelected);
 
   console.log("width: " + width);
   console.log("heigth: " + height);
@@ -30,14 +31,14 @@ const ItemDetail = ({ route, navigation }) => {
     else setOrientation("portrait");
   }, [width, height]);
 
-  useEffect(() => {
+/*   useEffect(() => {
     //Encontrar el producto por su id
     const productSelected = allProducts.find(
       (product) => product.id === idSelected
     );
 
     setProduct(productSelected);
-  }, [idSelected]);
+  }, [idSelected]); */
 
   console.log(product);
 

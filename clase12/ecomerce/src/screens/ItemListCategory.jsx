@@ -3,9 +3,10 @@ import React, { useEffect, useState } from "react";
 
 import { colors } from "../global/colors";
 
-import products from "../data/products.json";
+//import products from "../data/products.json";
 import Search from "../components/Search";
 import ProductItem from "../components/ProductItem.jsx";
+import { useGetProductsByCategoryQuery } from "../services/shopServices.js";
 
 const ItemListCategory = ({ navigation, route }) => {
   const [keyWord, setKeyword] = useState("");
@@ -14,6 +15,8 @@ const ItemListCategory = ({ navigation, route }) => {
 
   const { category: categorySelected } = route.params;
 
+  const {data: productsFetched, error: errorFetched, isLoading} = useGetProductsByCategoryQuery(categorySelected);
+  console.log(productsFetched)
   useEffect(() => {
     const regexDigits = /\d/;
     const hasDigits = regexDigits.test(keyWord);
@@ -32,17 +35,21 @@ const ItemListCategory = ({ navigation, route }) => {
 
     console.log(error);
 
-    const productsPreFiltered = products.filter(
+/*      const productsPreFiltered = products.filter(
       (product) => product.category === categorySelected
-    );
+    );  
+    */
 
-    const productsFiter = productsPreFiltered.filter((product) =>
+    if(!isLoading){
+    const productsFiter = productsFetched.filter((product) =>
       product.title.toLocaleLowerCase().includes(keyWord.toLocaleLowerCase())
     );
-    console.log(productsFiter);
+    //console.log(productsFiter);
     setProductsFiltered(productsFiter);
     setError("");
-  }, [keyWord, categorySelected]);
+    }
+
+  }, [keyWord, categorySelected, productsFetched, isLoading]);
 
   return (
     <View style={styles.flatListContainer}>
