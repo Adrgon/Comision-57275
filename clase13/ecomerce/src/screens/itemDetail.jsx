@@ -11,6 +11,8 @@ import {
 
 
 import { useGetProductByIdQuery } from "../services/shopServices";
+import { useDispatch } from "react-redux";
+import { addCartItem } from "../features/Cart/CartSlice";
 
 
 const ItemDetail = ({ route, navigation }) => {
@@ -18,6 +20,8 @@ const ItemDetail = ({ route, navigation }) => {
   const [orientation, setOrientation] = useState("portrait");
 //  const [product, setProduct] = useState(null);
   const { productoId: idSelected } = route.params;
+
+  const dispatch = useDispatch()
 
   const {data: product, error, isLoading} = useGetProductByIdQuery(idSelected);
 
@@ -31,7 +35,11 @@ const ItemDetail = ({ route, navigation }) => {
     else setOrientation("portrait");
   }, [width, height]);
 
-
+const handleAddCart = () => {
+  // agregar al carrito
+  dispatch(addCartItem)
+  dispatch(addCartItem({...product, quantity: 1}))
+}
 
   return (
     <View>
@@ -61,7 +69,7 @@ const ItemDetail = ({ route, navigation }) => {
             <Text>{product.title}</Text>
             <Text>{product.description}</Text>
             <Text style={styles.price}>${product.price}</Text>
-            <Button title="Add cart"></Button>
+            <Button title="Add cart" onPress={handleAddCart}></Button>
           </View>
         </View>
       ) : null}

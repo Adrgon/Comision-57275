@@ -4,6 +4,7 @@ import { baseUrl } from "../databases/realtimeDataBase";
 
 
 export const shopApi = createApi({
+  reducerPath: "shopApi",
   baseQuery: fetchBaseQuery({ baseUrl: baseUrl }),
   endpoints: (builder) => ({
     getCategories: builder.query({
@@ -21,10 +22,22 @@ export const shopApi = createApi({
       query: (productId) => `products.json?orderBy="id"&equalTo=${productId}`,
       transformResponse: (res) => {
         const transformedResponse = Object.values(res);
-        if(transformedResponse.length) return transformedResponse[0];
+        if (transformedResponse.length) return transformedResponse[0];
       },
+    }),
+    postOrder: builder.mutation({
+      query: ({ ...order }) => ({
+        url: "order.json",
+        method: "POST",
+        body: order,
+      }),
     }),
   }),
 });
 
-export const {useGetCategoriesQuery, useGetProductsByCategoryQuery, useGetProductByIdQuery} = shopApi;
+export const {
+  useGetCategoriesQuery, 
+  useGetProductsByCategoryQuery, 
+  useGetProductByIdQuery,
+  usePostOrderMutation
+} = shopApi;

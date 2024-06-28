@@ -1,16 +1,13 @@
 import { Pressable, StyleSheet, Text, View } from "react-native";
 import React, { useState, useEffect } from "react";
-
 import { colors } from "../global/colors";
-
-import { useDispatch } from "react-redux";
 import SubmitButton from "../components/SubmitButton";
 import InputForm from "../components/InputForm";
-
 import { useSignUpMutation } from "../services/authService";
+import { useDispatch } from "react-redux";
 import { setUser } from "../features/User/UserSlice";
 
-import { signupSchema } from "../validation/authSchema";
+
 
 const Signup = ({ navigation }) => {
   const [email, setEmail] = useState("");
@@ -20,10 +17,26 @@ const Signup = ({ navigation }) => {
   const [confirmPassword, setconfirmPassword] = useState("");
   const [errorConfirmPassword, setErrorConfirmPassword] = useState("");
 
+  const dispatch = useDispatch()
+  const [triggerSignUp, result] = useSignUpMutation()
+
+  useEffect(()=>{
+    if(result.isSuccess) {
+      dispatch(
+        setUser({
+          email: result.data.email,
+          idToken: result.data.idToken
+        })
+      )
+    }
+  }, [result])
 
   const onSubmit = () => {
     // logica de registro
+    triggerSignUp({email, password, returnSecureToken: true})
   }
+
+  //console.log(result)
 
   return (
     <View style={styles.main}>

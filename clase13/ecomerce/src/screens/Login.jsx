@@ -4,9 +4,7 @@ import { colors } from "../global/colors";
 
 import InputForm from "../components/InputForm";
 import SubmitButton from "../components/SubmitButton";
-import { useSignInMutation } from "../services/authService";
-import { useDispatch } from "react-redux";
-import { setUser } from "../features/User/UserSlice";
+
 
 const Login = ({ navigation }) => {
   const [email, setEmail] = useState();
