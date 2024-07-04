@@ -1,11 +1,14 @@
 import { StyleSheet, Text, View, Image, Pressable } from 'react-native'
 import React, { useState } from 'react'
 import { colors } from '../global/colors'
+import { useSelector } from 'react-redux'
+import { useGetProfileimageQuery } from '../services/shopServices'
 
 const MyProfile = ({navigation}) => {
 
   const [image, setImage] = useState(null)
-
+  const {imageCamera, localId} = useSelector((state) => state.auth.value)
+  const {data: imageFromBase} = useGetProfileimageQuery(localId)
   return (
     <View style={styles.container}>
       {image ?

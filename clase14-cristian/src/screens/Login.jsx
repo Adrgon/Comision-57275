@@ -19,10 +19,13 @@ const Login = ({ navigation }) => {
 
   useEffect(()=> {
     if (result.isSuccess) {
-      dispatch(setUser({
-        email: result.data.email,
-        idToken: result.data.idToken
-      }))
+      dispatch(
+        setUser({
+          email: result.data.email,
+          idToken: result.data.idToken,
+          localId: result.data.localId,
+        })
+      );
     }
   }, [result])
 

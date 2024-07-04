@@ -2,10 +2,17 @@ import { StyleSheet, Text, View, Image, Pressable } from 'react-native'
 import React, { useState } from 'react'
 import { colors } from '../global/colors'
 import * as ImagePicker from 'expo-image-picker';
+import { useDispatch, useSelector } from 'react-redux';
+import { setCameraImage } from '../features/User/UserSlice';
+import { usePostProfileImageMutation } from '../services/shopServices';
 
-const ImageSelector = () => {
+const ImageSelector = ({navigation}) => {
 
   const [image, setImage] = useState(null)
+  const [triggerPostImage, result] = usePostProfileImageMutation();
+  const dispatch = useDispatch()
+  const { localId } = useSelector((state) => state.auth.value);
+  console.log(localId)
 
   const verifyCameraPermisson = async () => {
     const { status } = await ImagePicker.requestCameraPermissionsAsync();
@@ -35,7 +42,13 @@ const ImageSelector = () => {
   }
 
   const confirmImage = () => {
-    
+    try {
+      dispatch(setCameraImage(image))
+      triggerPostImage({image, localId})
+      navigation.goBack();
+    } catch (error) {
+      console.log(error);
+    }
   }
 
   return (
