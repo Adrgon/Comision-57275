@@ -8,16 +8,14 @@ import { useSignInMutation } from "../services/authService";
 import { useDispatch } from "react-redux";
 import { setUser } from "../features/User/UserSlice";
 
-
 const Login = ({ navigation }) => {
   const [email, setEmail] = useState();
   const [password, setPassword] = useState();
-  const dispatch = useDispatch()
+  const dispatch = useDispatch();
 
-  const [triggerSignIn, result] = useSignInMutation() 
+  const [triggerSignIn, result] = useSignInMutation();
 
-
-  useEffect(()=> {
+  useEffect(() => {
     if (result.isSuccess) {
       dispatch(
         setUser({
@@ -27,11 +25,11 @@ const Login = ({ navigation }) => {
         })
       );
     }
-  }, [result])
+  }, [result]);
 
-  const onSubmit = ()=> {
-    triggerSignIn({email, password, returnSecureToken: true})
-  }
+  const onSubmit = () => {
+    triggerSignIn({ email, password, returnSecureToken: true });
+  };
 
   return (
     <View style={styles.main}>
