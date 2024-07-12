@@ -1,0 +1,14 @@
+Alternativas storage
+---------------------
+AsyncStorage https://docs.expo.dev/versions/latest/sdk/async-storage/
+Expo FileSystem https://docs.expo.dev/versions/latest/sdk/filesystem/
+Expo Secure Storage https://docs.expo.dev/versions/latest/sdk/securestore/
+
+
+SQLite
+-----
+SQLite home => https://www.sqlite.org/
+Expo SQLite => https://docs.expo.dev/versions/latest/sdk/sqlite/
+ACID definitions => https://www.techopedia.com/definition/23949/atomicity-consistency-isolation-durability-acid-database-management-system
+Basic SQL => https://www.w3schools.com/sql/
+Practicar con SQLite => https://sqliteonline.com/
