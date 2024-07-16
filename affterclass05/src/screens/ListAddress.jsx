@@ -35,7 +35,7 @@ const styles = StyleSheet.create({
     },
     text: {
         paddingVertical: 20,
-        fontFamily: "Josefin",
+        //fontFamily: "Josefin",
         fontSize: 18,
     },
 })

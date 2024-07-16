@@ -23,6 +23,6 @@ const styles = StyleSheet.create({
   text: {
     color: colors.green300,
     fontSize: 22,
-    fontFamily: 'Josefin'
+    //fontFamily: 'Josefin'
   },
 });

@@ -116,7 +116,7 @@ const styles = StyleSheet.create({
     },
     text: {
         paddingTop: 20,
-        fontFamily: "Josefin",
+        //fontFamily: "Josefin",
         fontSize: 18,
     },
     noLocationContainer: {

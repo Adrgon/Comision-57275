@@ -1,0 +1,47 @@
+Alternativas storage
+---------------------
+AsyncStorage https://docs.expo.dev/versions/latest/sdk/async-storage/
+Expo FileSystem https://docs.expo.dev/versions/latest/sdk/filesystem/
+Expo Secure Storage https://docs.expo.dev/versions/latest/sdk/securestore/
+
+
+SQLite
+-----
+
+SQLite home => https://www.sqlite.org/
+Expo SQLite => https://docs.expo.dev/versions/latest/sdk/sqlite/
+ACID definitions => https://www.techopedia.com/definition/23949/atomicity-consistency-isolation-durability-acid-database-management-system
+Basic SQL => https://www.w3schools.com/sql/
+Practicar con SQLite => https://sqliteonline.com/
+
+
+
+
+Atomicidad
+La atomicidad es una propiedad que garantiza que una base de datos 
+siga la regla del todo o nada. En otras palabras, la base de datos 
+considera todas las operaciones transaccionales como una unidad 
+completa o un átomo.
+
+Consistencia
+La coherencia es una propiedad que garantiza que solo se escriban en 
+la base de datos datos válidos que cumplan todas las reglas y 
+restricciones. 
+Cuando una transacción genera datos no válidos, la base de datos 
+vuelve a su estado anterior, que cumple con todas las reglas y 
+restricciones habituales.
+
+Aislamiento
+El aislamiento es una propiedad que garantiza la individualidad de 
+cada transacción y evita que se vean afectadas por otras transacciones. 
+Garantiza que las transacciones se procesen de forma segura e 
+independiente al mismo tiempo sin interferencias, pero no garantiza 
+el orden de las transacciones.
+
+Durabilidad
+La durabilidad es una propiedad que hace cumplir las transacciones 
+completadas, garantizando que una vez confirmada cada una de ellas 
+permanecerá en el sistema incluso en caso de fallas posteriores.
+
+Si una transacción es exitosa, todos los cambios generados por ella 
+se almacenan de forma permanente.

@@ -8,7 +8,9 @@ import { useSignInMutation } from "../services/authService";
 import { useDispatch } from "react-redux";
 import { setUser } from "../features/User/UserSlice";
 
-import { insertSession } from "../persistence";
+//import { insertSession } from "../persistence";
+
+import { useDB } from "../hooks/useDB";
 
 
 const Login = ({ navigation }) => {
@@ -18,6 +20,8 @@ const Login = ({ navigation }) => {
 
   const [triggerSignIn, result] = useSignInMutation() 
 
+  const {insertSession} = useDB()
+
 
   useEffect(()=> {
     if (result?.data && result.isSuccess) {
@@ -25,18 +29,14 @@ const Login = ({ navigation }) => {
         email: result.data.email,
         localId: result.data.localId,
         token: result.data.idToken
-      }).then((response)=> {
-        console.log(response)
-        dispatch(
-          setUser({
-            email: result.data.email,
-            idToken: result.data.idToken,
-            localId: result.data.localId,
-          })
-        );        
-      }).catch(err => {
-        console.log(err)
       })
+      dispatch(
+        setUser({
+          email: result.data.email,
+          idToken: result.data.idToken,
+          localId: result.data.localId,
+        })
+      );        
     }
   }, [result])
 
@@ -87,7 +87,7 @@ const styles = StyleSheet.create({
   },
   title: {
     fontSize: 22,
-    fontFamily: "Josefin",
+    //fontFamily: "Josefin",
   },
   sub: {
     fontSize: 14,

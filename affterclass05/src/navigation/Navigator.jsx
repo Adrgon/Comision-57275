@@ -6,27 +6,31 @@ import BottomTapNavigator from './BottomTapNavigator'
 import AuthStackNavigator from './AuthStackNavigator'
 import { useDispatch, useSelector } from 'react-redux'
 import { useEffect } from 'react'
-import { getSession } from '../persistence'
+//import { getSession } from '../persistence'
 import { setUser } from '../features/User/UserSlice'
+
+import { useDB } from '../hooks/useDB'
 
 const Navigator = () => {
   //const [user, setUser] = useState(null)
-  const { user } = useSelector((state) => state.auth.value)
   const dispatch = useDispatch()
+  const { user } = useSelector((state) => state.auth.value)
+  const {getSession} = useDB()
   useEffect(()=>{
-    (async () => {
+    ( async () => {
       try {
-        const response = await getSession();
-        if(response.rows.length){
-          const user = response.rows._array[0]
-          console.log(user);
-          dispatch(setUser({
-            email: user.email,
-            localId: user.localId,
-            idToken: user.token,
-          }))
+        const response =  await getSession();
+        console.log(response);
+        if(response){
+          const user = response;
+          dispatch(
+            setUser({
+              email: user.email,
+              localId: user.localId,
+              idToken: user.token,
+            })
+          )
         }
-        //console.log(response)
       } catch (error) {
         console.log(error)
       }

@@ -61,6 +61,6 @@ const styles = StyleSheet.create({
   errorText: {
     color: colors.white,
     fontSize: 16,
-    fontFamily: "Josefin",
+    //fontFamily: "Josefin",
   },
 });

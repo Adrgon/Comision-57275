@@ -29,7 +29,7 @@ const styles = StyleSheet.create({
         padding: 8
     },
     text: {
-        fontFamily: "Josefin",
+        //fontFamily: "Josefin",
         fontSize: 18,
         color: colors.green300,
     },
